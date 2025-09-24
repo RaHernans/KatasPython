@@ -32,10 +32,10 @@ print(lista_duplicada([1, 2, 3, 4]))  # [2, 4, 6, 8]
 # 🧪Ejercicio 3
 # Escribe una función que tome una lista de palabras y una palabra objetivo como parámetros. La función debe 
 #devolver una lista con todas las palabras de la lista original que contengan la palabra objetivo
-def filtrar_palabras(lista, objetivo):
+def palabras_que_contienen(lista, objetivo):
     return [palabra for palabra in lista if objetivo in palabra]
 lista_palabras= ["avión", "ventana", "invierno", "vino", "universo", "evento", "aventura", "vino"]
-resultado = filtrar_palabras(lista_palabras, "ven")
+resultado = palabras_que_contienen(lista_palabras, "ven")
 
 print(palabras_que_contienen(["avión", "ventana", "invierno", "vino", "universo", "envento", "aventura"], "ven"))
 
@@ -63,7 +63,7 @@ def evaluar_nota(lista, nota_aprobado=5):
 
 notas = [4, 6, 7, 5]
 resultado = evaluar_nota(notas)
-print("Evaluar media:", evaluar_media([4, 6, 5]))
+print("Evaluar media:", evaluar_nota([4, 6, 5]))
 
 # 🧪Ejercicio 6
 # Escribe una función que calcule el factorial de un número de manera recursiva.
@@ -82,11 +82,11 @@ print("Factorial de 5:", factorial(5))
 # Genera una función que convierta una lista de tuplas a una lista de strings. Usa la función 
 #map()
 def tuplas_a_strings(lista_tuplas):
-    return list(map(str, lista_tuplas))
+    return ["".join(map(str,tuplas)) for tuplas in lista_tuplas]
 
-tuplas = [(1, 2), (3, 4), (5, 6)]
-resultado = tuplas_a_strings(tuplas)
-print("Lista de tuplas a strings:", tuplas_a_strings([("Hola", "mundo"), ("Python", "es", "genial")]))
+tuplas = [("Hola","Mundo"), ("Python", "Ejercicio")]
+print(tuplas_a_strings(tuplas))
+
 
 # 🧪Ejercicio 8 
 #  Escribe un programa que pida al usuario dos números e intente dividirlos. Si el usuario ingresa un valor no numérico 
@@ -348,7 +348,7 @@ sumar_listas = lambda l1, l2: list(map(lambda x, y: x + y, l1, l2))
 
 print(sumar_listas([1, 2, 3], [4, 5, 6]))  # Resultado: [5, 7, 9]
 
-# 🧪Ejercicio 35
+# 🧪Ejercicio 34
 #Crea la clase Arbol , define un árbol genérico con un tronco y ramas como atributos. Los métodos disponibles son: 
 #crecer_tronco , 
 #nueva_rama , 
@@ -440,7 +440,7 @@ class UsuarioBanco:
 
     def transferir_dinero(self, otro_usuario, cantidad):
         if cantidad > otro_usuario.saldo:
-            raise ValueError("El usuario no tiene suficiente saldo.")
+            raise ValueError(f"{otro_usuario.nombre} no tiene suficiente saldo.")
         otro_usuario.saldo -= cantidad
         self.saldo += cantidad
 
@@ -452,11 +452,11 @@ alicia = UsuarioBanco("Alicia", 100, True)
 bob = UsuarioBanco("Bob", 50, True)
 
 bob.agregar_dinero(20)               # Bob ahora tiene 70
-alicia.transferir_dinero(bob, 80)    # Bob transfiere 80 a Alicia
+alicia.transferir_dinero(bob, 80)    # Bob no tiene suficiente saldo para transferir 80.
 alicia.retirar_dinero(50)            # Alicia retira 50
 
-print("Alicia - Saldo:", alicia.saldo)  # Resultado: 130
-print("Bob - Saldo:", bob.saldo)        # Resultado: -10 (si no se valida negativo)
+print("Alicia - Saldo:", alicia.saldo)  # Resultado: 50
+print("Bob - Saldo:", bob.saldo)        # Resultado: 70
  
 #🧪 Ejercicio 37
 # Crea una función llamada procesar_texto que procesa un texto según la opción especificada:  contar_palabras, reemplazar_palabras , 
@@ -586,7 +586,7 @@ def calcular_descuento():
         precio = float(input("Precio original: "))
         tiene_cupon = input("¿Tienes cupón de descuento? (sí/no): ").strip().lower()
 
-        if tiene_cupon == "sí":
+        if tiene_cupon in ["sí","si"]:
             valor_cupon = float(input("¿Cuánto vale el cupón?: "))
             if valor_cupon > 0:
                 precio -= valor_cupon
